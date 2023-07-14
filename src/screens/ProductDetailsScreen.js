@@ -6,12 +6,17 @@ import {
   useWindowDimensions,
   Text,
   ScrollView,
+  Pressable,
 } from "react-native";
 import products from "../data/products";
 
 const ProductDetailsScreen = () => {
   const product = products[0];
   const { width } = useWindowDimensions();
+
+  function addToCart() {
+    console.warn("Add To Cart");
+  }
 
   return (
     <View>
@@ -40,6 +45,9 @@ const ProductDetailsScreen = () => {
         </View>
       </ScrollView>
       {/* Add to cart button */}
+      <Pressable onPress={addToCart} style={styles.button}>
+        <Text style={styles.buttonText}>Add To Cart</Text>
+      </Pressable>
 
       {/* Navigation icon */}
     </View>
@@ -62,6 +70,21 @@ const styles = StyleSheet.create({
     fontSize: 18,
     lineHeight: 30,
     fontWeight: 300,
+  },
+  button: {
+    position: "absolute",
+    backgroundColor: "black",
+    bottom: 30,
+    width: "90%",
+    alignSelf: "center",
+    padding: 20,
+    borderRadius: 100,
+    alignItems: "center",
+  },
+  buttonText: {
+    color: "white",
+    fontWeight: 500,
+    fontSize: 16,
   },
 });
 
