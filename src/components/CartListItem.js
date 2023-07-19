@@ -6,9 +6,23 @@ import { cartSlice } from "../store/cartSlice";
 const CartListItem = ({ cartItem }) => {
   const dispatch = useDispatch();
 
-  const increaseQuantity = () => {};
+  const increaseQuantity = () => {
+    dispatch(
+      cartSlice.actions.changeQuantity({
+        productId: cartItem.product.id,
+        amount: 1,
+      })
+    );
+  };
 
-  const decreaseQuantity = () => {};
+  const decreaseQuantity = () => {
+    dispatch(
+      cartSlice.actions.changeQuantity({
+        productId: cartItem.product.id,
+        amount: -1,
+      })
+    );
+  };
 
   return (
     <View style={styles.container}>
@@ -19,14 +33,14 @@ const CartListItem = ({ cartItem }) => {
 
         <View style={styles.footer}>
           <Feather
-            onPress={increaseQuantity}
+            onPress={decreaseQuantity}
             name="minus-circle"
             size={24}
             color="gray"
           />
           <Text style={styles.quantity}>{cartItem.quantity}</Text>
           <Feather
-            onPress={decreaseQuantity}
+            onPress={increaseQuantity}
             name="plus-circle"
             size={24}
             color="gray"
