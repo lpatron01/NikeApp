@@ -1,3 +1,3 @@
-## Course pause : 3:08:52
+## Nike Ecommerce App
 
-## Course Title : NotJustDev - Building the Ultimate Nike App in React-native and redux.
+<img src="./ss.png" height="500" width="700"/>
