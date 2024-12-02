@@ -11,22 +11,27 @@ import {
 import products from "../data/products";
 import { useSelector, useDispatch } from "react-redux";
 import { cartSlice } from "../store/cartSlice";
+import { useState } from "react"; // Import useState
 
 const ProductDetailsScreen = () => {
   const product = useSelector((state) => state.products.selectedProduct);
   const dispatch = useDispatch();
-
   const { width } = useWindowDimensions();
 
-    function addToCart() {
-      dispatch(cartSlice.actions.addCartItem({product }))
+  // State to manage button color and message
+  const [buttonColor, setButtonColor] = useState("black");
+  const [message, setMessage] = useState("");
+
+  function addToCart() {
+    dispatch(cartSlice.actions.addCartItem({ product }));
+    setButtonColor("green"); // Change button color
+    setMessage("Product added to cart!"); // Set message
   }
 
   return (
     <View>
       <ScrollView>
         {/* Image Carousel */}
-
         <FlatList
           data={product.images}
           renderItem={({ item }) => (
@@ -46,10 +51,14 @@ const ProductDetailsScreen = () => {
 
           {/* Description */}
           <Text style={styles.description}>{product.description}</Text>
+
+          {/* Message display */}
+          {message ? <Text style={styles.message}>{message}</Text> : null}
         </View>
       </ScrollView>
+
       {/* Add to cart button */}
-      <Pressable onPress={addToCart} style={styles.button}>
+      <Pressable onPress={addToCart} style={[styles.button, { backgroundColor: buttonColor }]}>
         <Text style={styles.buttonText}>Add To Cart</Text>
       </Pressable>
 
@@ -77,7 +86,6 @@ const styles = StyleSheet.create({
   },
   button: {
     position: "absolute",
-    backgroundColor: "black",
     bottom: 30,
     width: "90%",
     alignSelf: "center",
@@ -89,6 +97,12 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: 500,
     fontSize: 16,
+  },
+  message: {
+    marginTop: 10,
+    fontSize: 16,
+    color: "green",
+    fontWeight: "bold",
   },
 });
 
